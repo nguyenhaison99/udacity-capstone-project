@@ -32,19 +32,6 @@ pipeline {
 			}
 		}
 
-		stage('Set aws') {
-					steps {
-						withAWS(region:'us-east-1', credentials:'udacity-capstone') {
-							withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
-							// Your stuff here
-							sh '''
-								aws eks --region us-east-1 update-kubeconfig --name udacitycluster
-							'''
-							}	
-						}
-					}
-				}
-
 		stage('Set Current kubectl Context') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
