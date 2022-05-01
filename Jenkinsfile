@@ -35,7 +35,6 @@ pipeline {
                     withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
                     // Your stuff here
                     sh '''
-                        sudo chown -R $USER /var/lib/jenkins/.kube/kubeconfig
 						kubectl config use-context arn:aws:eks:us-east-1:125745568001:cluster/udacitycluster
 					'''
                     }	
