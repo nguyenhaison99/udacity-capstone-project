@@ -1,8 +1,3 @@
-1. Create Jenkins server and install needed plugins
-2. Create Infrastructure using a Jenkins pipeline
-3. Deploy the application using a Jenkins pipeline
-4. Update the application using blue/green deployment
-
 # Udacity Cloud DevOps Capstone Project
 
 This is final project of Udacity Cloud DevOps Engineer Nanodegree Program.
@@ -90,7 +85,7 @@ $ ./create-jenkins.sh jenkins-stack infrastructure/jenkins-server.yml infrastruc
 
 - Creates a EKS cluster by SSH to the Jenkins EC2
 - Configures kubectl so that we can connect to EKS cluster
-- Note: This pipeline will take around 15-20 minutes to complete.
+*Note: This pipeline will take around 15-20 minutes to complete.*
 
 - Add Docker Hub credentials in Jenkins so that we can push docker image to Docker Hub.
 - Create new item in Jenkins of type `Pipeline`
@@ -102,3 +97,7 @@ $ ./create-jenkins.sh jenkins-stack infrastructure/jenkins-server.yml infrastruc
 - In the browser, open a new tab and hit link as `http://<DNS_NAME>:8000/`. It will show the capstone project website.
 - Approve the pipeline to proceed to next stage
 - Once the pipeline is complete, service will be pointing to pods that has label as `app=green`
+
+WARNINGS: Why do the project, you may encounter:
+1. Jenkins could not find ~/.kube/config ==> Provide a GLOBAL ENV
+2. The IAM ROLE created the cluster is not used when using `kubectl apply` ==> [How to fix](https://stackoverflow.com/questions/50791303/kubectl-error-you-must-be-logged-in-to-the-server-unauthorized-when-accessing?fbclid=IwAR20CgssgeOpkRAsJYCOfBir0vYw6nfr79_eS2u00Ny9SwYosP2HOHfZNdw) 
