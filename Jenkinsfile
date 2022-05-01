@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	environment {
+       KUBECONFIG='~/.kube/kubeconfig'                               //can be used in whole pipeline
+   }
 	stages {
 
 		stage('Lint HTML') {
