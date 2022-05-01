@@ -32,6 +32,8 @@ pipeline {
 			}
 		}
 
+
+
 		stage('Set Current kubectl Context') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
@@ -61,9 +63,11 @@ pipeline {
 		stage('Deploy green container') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
+                    withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) { 
 					sh '''
 						kubectl apply -f ./kubernetes-resources/green-replication-controller.yml 
 					'''
+				    }
                 }
 			}
 		}
@@ -71,11 +75,11 @@ pipeline {
 		stage('Create Service Pointing to Blue Replication Controller') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
-                    
+                    withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
 					sh '''
 						kubectl apply -f ./kubernetes-resources/blue-service.yml 
 					'''
-                    
+                    }
                 }
 			}
 		}
@@ -89,11 +93,11 @@ pipeline {
 		stage('Create Service Pointing to Green Replication Controller') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
-					
+					withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
                     sh '''
 						kubectl apply -f ./kubernetes-resources/green-service.yml 
 					'''
-                    
+                    }
                 }
 			}
 		}
