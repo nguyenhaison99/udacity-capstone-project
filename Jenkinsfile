@@ -11,7 +11,7 @@ pipeline {
 			}
 		}
 		
-		stage('Build Docker Image') {
+		stage('Build Docker Image blue') {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
@@ -21,7 +21,7 @@ pipeline {
 			}
 		}
 
-		stage('Push Image To Dockerhub') {
+		stage('Push Image To Dockerhub blue') {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
@@ -32,7 +32,7 @@ pipeline {
 			}
 		}
 
-		stage('Build Docker Image') {
+		stage('Build Docker Image green') {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
@@ -42,7 +42,7 @@ pipeline {
 			}
 		}
 
-		stage('Push Image To Dockerhub') {
+		stage('Push Image To Dockerhub green') {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
