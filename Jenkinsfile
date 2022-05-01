@@ -7,7 +7,7 @@ pipeline {
 
 		stage('Lint HTML') {
 			steps {
-				sh 'tidy -q -e *.html'
+				sh 'tidy -q -e ./docker/blue/*.html'
 			}
 		}
 		
@@ -15,7 +15,7 @@ pipeline {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
-						docker build -t nguyenson99/udacity-capstone .
+						docker build -t nguyenson99/udacity-capstone-docker-blue ./docker/blue/
 					'''
 				}
 			}
@@ -26,13 +26,32 @@ pipeline {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
 						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-						docker push nguyenson99/udacity-capstone
+						docker push nguyenson99/udacity-capstone-docker-blue
 					'''
 				}
 			}
 		}
 
+		stage('Build Docker Image') {
+			steps {
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+					sh '''
+						docker build -t nguyenson99/udacity-capstone-docker-green ./docker/green/
+					'''
+				}
+			}
+		}
 
+		stage('Push Image To Dockerhub') {
+			steps {
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'udacity-docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+					sh '''
+						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+						docker push nguyenson99/udacity-capstone-docker-green
+					'''
+				}
+			}
+		}
 
 		stage('Set Current kubectl Context') {
 			steps {
