@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
                 - name: green
-                  image: nguyenson99/udacity-capstone-docker-green
+                  image: nguyenson99/udacity-capstone-docker-blue
                   ports:
                       - name: http-server
                         containerPort: 80
