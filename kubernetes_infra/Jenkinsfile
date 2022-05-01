@@ -8,7 +8,7 @@ pipeline {
 					sh '''
 						eksctl create cluster \
 						--name udacitycapstonecluster \
-						--version 1.14 \
+						--version 1.19 \
 						--nodegroup-name standard-workers \
 						--node-type t2.small \
 						--nodes 2 \
