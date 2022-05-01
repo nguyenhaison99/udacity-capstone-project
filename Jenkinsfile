@@ -32,9 +32,12 @@ pipeline {
 		stage('Set Current kubectl Context') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
-					sh '''
+                    withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
+                    // Your stuff here
+                    sh '''
 						kubectl config use-context arn:aws:eks:us-east-1:125745568001:cluster/udacitycluster
 					'''
+                    }	
 				}
 			}
 		}
@@ -42,9 +45,12 @@ pipeline {
 		stage('Deploy Blue Container') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
-					sh '''
+                    withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
+                    // Your stuff here
+                    sh '''
 						kubectl apply -f ./kubernetes-resources/blue-replication-controller.yml --context udacitycluster
 					'''
+                    }	
 				}
 			}
 		}
@@ -52,20 +58,24 @@ pipeline {
 		stage('Deploy green container') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
+                    withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) { 
 					sh '''
 						kubectl apply -f ./kubernetes-resources/green-replication-controller.yml --context udacitycluster
 					'''
-				}
+				    }
+                }
 			}
 		}
 
 		stage('Create Service Pointing to Blue Replication Controller') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
+                    withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
 					sh '''
 						kubectl apply -f ./kubernetes-resources/blue-service.yml --context udacitycapstonecluster
 					'''
-				}
+                    }
+                }
 			}
 		}
 
@@ -78,10 +88,12 @@ pipeline {
 		stage('Create Service Pointing to Green Replication Controller') {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
-					sh '''
+					withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
+                    sh '''
 						kubectl apply -f ./kubernetes-resources/green-service.yml --context udacitycapstonecluster
 					'''
-				}
+                    }
+                }
 			}
 		}
 
