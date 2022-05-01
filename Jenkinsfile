@@ -43,7 +43,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
 					sh '''
-						kubectl apply -f ./kubernetes-resources/blue-replication-controller.yml --context udacitycapstonecluster
+						kubectl apply -f ./kubernetes-resources/blue-replication-controller.yml --context udacitycluster
 					'''
 				}
 			}
@@ -53,7 +53,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
 					sh '''
-						kubectl apply -f ./kubernetes-resources/green-replication-controller.yml --context udacitycapstonecluster
+						kubectl apply -f ./kubernetes-resources/green-replication-controller.yml --context udacitycluster
 					'''
 				}
 			}
