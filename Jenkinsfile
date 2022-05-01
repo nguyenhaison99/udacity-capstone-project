@@ -64,7 +64,7 @@ pipeline {
                     withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
                     // Your stuff here
                     sh '''
-						kubectl apply -f ./kubernetes-resources/blue-replication-controller.yml --context udacitycluster
+						kubectl apply -f ./kubernetes-resources/blue-replication-controller.yml 
 					'''
                     }	
 				}
@@ -76,7 +76,7 @@ pipeline {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
                     withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) { 
 					sh '''
-						kubectl apply -f ./kubernetes-resources/green-replication-controller.yml --context udacitycluster
+						kubectl apply -f ./kubernetes-resources/green-replication-controller.yml 
 					'''
 				    }
                 }
@@ -88,7 +88,7 @@ pipeline {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
                     withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
 					sh '''
-						kubectl apply -f ./kubernetes-resources/blue-service.yml --context udacitycapstonecluster
+						kubectl apply -f ./kubernetes-resources/blue-service.yml 
 					'''
                     }
                 }
@@ -106,7 +106,7 @@ pipeline {
 				withAWS(region:'us-east-1', credentials:'aws_credentials') {
 					withEnv(["KUBECONFIG=$HOME/.kube/kubeconfig"]) {
                     sh '''
-						kubectl apply -f ./kubernetes-resources/green-service.yml --context udacitycapstonecluster
+						kubectl apply -f ./kubernetes-resources/green-service.yml 
 					'''
                     }
                 }
