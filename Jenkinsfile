@@ -29,15 +29,15 @@ pipeline {
 			}
 		}
 
-		stage('Set Current kubectl Context') {
-			steps {
-				withAWS(region:'us-east-1', credentials:'udacity-capstone') {
-					sh '''
-						kubectl config use-context udacitycapstonecluster
-					'''
-				}
-			}
-		}
+		// stage('Set Current kubectl Context') {
+		// 	steps {
+		// 		withAWS(region:'us-east-1', credentials:'udacity-capstone') {
+		// 			sh '''
+		// 				kubectl config use-context udacitycapstonecluster
+		// 			'''
+		// 		}
+		// 	}
+		// }
 
 		stage('Deploy Blue Container') {
 			steps {
