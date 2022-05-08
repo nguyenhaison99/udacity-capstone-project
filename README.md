@@ -98,6 +98,6 @@ $ ./create-jenkins.sh jenkins-stack infrastructure/jenkins-server.yml infrastruc
 - Approve the pipeline to proceed to next stage
 - Once the pipeline is complete, service will be pointing to pods that has label as `app=green`
 
-WARNINGS: Why do the project, you may encounter:
+WARNINGS: While doing the project, you may encounter:
 1. Jenkins could not find ~/.kube/config ==> Provide a GLOBAL ENV
 2. The IAM ROLE created the cluster is not used when using `kubectl apply` ==> [How to fix](https://stackoverflow.com/questions/50791303/kubectl-error-you-must-be-logged-in-to-the-server-unauthorized-when-accessing?fbclid=IwAR20CgssgeOpkRAsJYCOfBir0vYw6nfr79_eS2u00Ny9SwYosP2HOHfZNdw) 
